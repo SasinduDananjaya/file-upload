@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 export const connectDB = async () => {
   try {
-    const DB_URL = "mongodb+srv://sasindu:sasindu@file-upload.cghm9.mongodb.net/?retryWrites=true&w=majority&appName=file-upload";
+    const DB_URL = process.env.DB_URL;
     await mongoose.connect(DB_URL, {
       dbName: "file-upload",
     });
