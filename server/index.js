@@ -13,7 +13,13 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.dirname(__filename); // get the name of the directory
 
 // Middleware
-app.use(cors());
+app.use(cors(
+  {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    credentials: true
+  }
+));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Multer Config
