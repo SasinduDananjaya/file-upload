@@ -24,7 +24,8 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 // ));
 const allowedOrigins = [
   'https://file-upload-api-beta.vercel.app',
-  'https://file-upload-client-steel.vercel.app'
+  'https://file-upload-client-steel.vercel.app',
+  'https://file-upload-api-beta.vercel.app/files'
 ];
 
 app.use(cors({
