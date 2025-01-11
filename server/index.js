@@ -79,12 +79,18 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.status(201).json({ message: "File uploaded successfully!" });
   } catch (err) {
     console.log("Upload Error", err);
+    res.status(500).json(err);
   }
 });
 
 app.get("/files", async (req, res) => {
-  const files = await UploadModel.find().lean().exec();
-  return res.status(200).send(files);
+  try {
+    const files = await UploadModel.find().lean().exec();
+    res.status(200).json(files);
+  } catch (err) {
+    console.error("Files retrieval error", err);
+    res.status(500).json(err);
+  }
 });
 
 // Server Start
