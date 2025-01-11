@@ -3,6 +3,7 @@ import multer from "multer";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import "dotenv/config";
 
 import { connectDB } from "./lib/db.js";
 import UploadModel from "./model/upload.schema.js";
@@ -67,7 +68,8 @@ app.get("/files", async (req, res) => {
 });
 
 // Server Start
-app.listen(4200, async () => {
+const port = process.env.PORT || 4200;
+app.listen(port, async () => {
   console.log("Server Started at: 4200");
   await connectDB();
 });
