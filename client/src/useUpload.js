@@ -30,47 +30,33 @@ export const useUpload = () => {
   });
 
   const uploadFile = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-  
-      const { status, data } = await axios.post(BASE_URL + "/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setUploadPercentage(percentCompleted);
-        },
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const { status, data } = await axios.post(BASE_URL + "/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total,
+        );
+        setUploadPercentage(percentCompleted);
+      },
+    });
+
+    if (status === 201) {
+      toast("Success!", {
+        description: data.message,
       });
-  
-      if (status === 201) {
-        toast("Success!", {
-          description: data.message,
-        });
-        await getAllFiles();
-        setFile(null);
-      }
-    } catch (error) {
-      console.error("Upload Error:", error);
-      toast("Error!", {
-        description: "File upload failed. Please try again.",
-      });
+      await getAllFiles();
+      setFile(null);
     }
   };
 
   const getAllFiles = async () => {
-    try {
-      const { data } = await axios.get(BASE_URL + "/files");
-      setFiles(data);
-    } catch (error) {
-      console.error("Fetch Files Error:", error);
-      toast("Error!", {
-        description: "Failed to fetch files. Please try again.",
-      });
-    }
+    const { data } = await axios.get(BASE_URL + "/files");
+    setFiles(data);
   };
 
   return {

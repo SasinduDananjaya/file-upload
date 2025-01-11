@@ -21,14 +21,8 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 //     credentials: true
 //   }
 // ));
-const corsOptions = {
-  origin: 'https://file-upload-client-steel.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Multer Config
