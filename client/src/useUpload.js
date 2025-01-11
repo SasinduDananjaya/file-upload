@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 
-export const BASE_URL = "http://localhost:4200";
+export const BASE_URL = "file-upload-api-beta.vercel.app";
 
 export const useUpload = () => {
   const [file, setFile] = useState(null);
