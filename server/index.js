@@ -53,7 +53,17 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf', 'image/jpg'];
+    if (allowedMimeTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type'));
+    }
+  }
+});
 
 // Define APIs
 app.get("/", (req, res) => {
@@ -96,6 +106,11 @@ app.get("/files", async (req, res) => {
 // Server Start
 const port = process.env.PORT || 4200;
 app.listen(port, async () => {
-  console.log("Server Started at: 4200");
-  await connectDB();
+  try {
+    await connectDB();
+    console.log("Database connected and server started at: 4200");
+  } catch (err) {
+    console.error("Database connection failed", err);
+    process.exit(1);
+  }
 });
