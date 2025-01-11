@@ -21,6 +21,12 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 //     credentials: true
 //   }
 // ));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://file-upload-client-steel.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
