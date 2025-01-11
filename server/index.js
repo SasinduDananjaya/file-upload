@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 // Middleware
 app.use(cors(
   {
-    origin: 'file-upload-api-beta.vercel.app',
+    origin: 'https://file-upload-api-beta.vercel.app/',
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true
   }
