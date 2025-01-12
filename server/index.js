@@ -20,7 +20,7 @@ app.use(cors(
   }
 ));
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("https://file-upload-client-steel.vercel.app/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Multer Config
 const storage = multer.diskStorage({
@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.post("/upload", upload.single("file"), async (req, res) => {
+app.post("https://file-upload-client-steel.vercel.app/upload", upload.single("file"), async (req, res) => {
   try {
     console.log(req.file);
 
@@ -68,17 +68,15 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.status(201).json({ message: "File uploaded successfully!" });
   } catch (err) {
     console.log("Upload Error", err);
-    res.status(500).json(err);
   }
 });
 
-app.get("/files", async (req, res) => {
+app.get("https://file-upload-client-steel.vercel.app/files", async (req, res) => {
   try {
     const files = await UploadModel.find().lean().exec();
     res.status(200).json(files);
   } catch (err) {
     console.error("Files retrieval error", err);
-    res.status(500).json(err);
   }
 });
 
